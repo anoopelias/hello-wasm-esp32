@@ -1,0 +1,11 @@
+sdkconfig
+sdkconfig.old
+build/
+SConscript
+SConscript_config
+config_common.cmake
+involve_boringssl.cmake
+lldb-wasm.patch
+build_llvm.py
+requirements.txt
+runtime_lib.cmake
