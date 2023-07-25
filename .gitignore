@@ -2,4 +2,7 @@ sdkconfig
 sdkconfig.old
 build/
 test_wasm.h
-test.wasm
+*.wasm
+*.wat
+*.swp
+*.o

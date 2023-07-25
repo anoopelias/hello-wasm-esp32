@@ -33,8 +33,9 @@ fn start<T: Termination + 'static>(
 }
 
 
+#[no_mangle]
 fn main() {
-    let to = "Hello rust world\n";
+    let to = "Hello rust world2\n";
     let st: *const u8 = to.as_ptr() as *const u8;
 
     unsafe {

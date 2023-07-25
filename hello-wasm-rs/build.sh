@@ -1,4 +1,5 @@
-rustc +nightly -C link-args=-zstack-size=1024 --target wasm32-wasi main.rs
+# 32kb stack size
+rustc +nightly -C link-args=-zstack-size=32768 --target wasm32-wasi main.rs
 
 echo "Build binarydump tool .."
 rm -fr build && mkdir build && cd build
