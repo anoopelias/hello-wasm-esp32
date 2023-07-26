@@ -14,8 +14,7 @@
 
 #define LOG_TAG "wamr"
 
-static void *
-app_instance_main(wasm_module_inst_t module_inst)
+static void * app_instance_main(wasm_module_inst_t module_inst)
 {
     const char *exception;
 
@@ -25,8 +24,7 @@ app_instance_main(wasm_module_inst_t module_inst)
     return NULL;
 }
 
-void *
-iwasm_main(void *arg)
+void * iwasm_main(void *arg)
 {
     (void)arg; /* unused */
     /* setup variables for instantiating and running the wasm module */
@@ -93,43 +91,6 @@ fail2interp:
 
 fail1interp:
 #endif
-#if WASM_ENABLE_AOT != 0
-    ESP_LOGI(LOG_TAG, "Run wamr with AoT");
-
-    wasm_file_buf = (uint8_t *)wasm_test_file_aot;
-    wasm_file_buf_size = sizeof(wasm_test_file_aot);
-
-    /* load WASM module */
-    if (!(wasm_module = wasm_runtime_load(wasm_file_buf, wasm_file_buf_size,
-                                          error_buf, sizeof(error_buf)))) {
-        ESP_LOGE(LOG_TAG, "Error in wasm_runtime_load: %s", error_buf);
-        goto fail1aot;
-    }
-
-    ESP_LOGI(LOG_TAG, "Instantiate WASM runtime");
-    if (!(wasm_module_inst =
-              wasm_runtime_instantiate(wasm_module, 32 * 1024, // stack size
-                                       32 * 1024,              // heap size
-                                       error_buf, sizeof(error_buf)))) {
-        ESP_LOGE(LOG_TAG, "Error while instantiating: %s", error_buf);
-        goto fail2aot;
-    }
-
-    ESP_LOGI(LOG_TAG, "run main() of the application");
-    ret = app_instance_main(wasm_module_inst);
-    assert(!ret);
-
-    /* destroy the module instance */
-    ESP_LOGI(LOG_TAG, "Deinstantiate WASM runtime");
-    wasm_runtime_deinstantiate(wasm_module_inst);
-
-fail2aot:
-    /* unload the module */
-    ESP_LOGI(LOG_TAG, "Unload WASM module");
-    wasm_runtime_unload(wasm_module);
-fail1aot:
-#endif
-
     /* destroy runtime environment */
     ESP_LOGI(LOG_TAG, "Destroy WASM runtime");
     wasm_runtime_destroy();
@@ -137,8 +98,7 @@ fail1aot:
     return NULL;
 }
 
-void
-app_main(void)
+void app_main(void)
 {
     pthread_t t;
     int res;
