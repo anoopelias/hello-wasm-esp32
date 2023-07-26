@@ -38,14 +38,10 @@ void * iwasm_main(void *arg)
 
     /* configure memory allocation */
     memset(&init_args, 0, sizeof(RuntimeInitArgs));
-#if WASM_ENABLE_GLOBAL_HEAP_POOL == 0
     init_args.mem_alloc_type = Alloc_With_Allocator;
     init_args.mem_alloc_option.allocator.malloc_func = (void *)os_malloc;
     init_args.mem_alloc_option.allocator.realloc_func = (void *)os_realloc;
     init_args.mem_alloc_option.allocator.free_func = (void *)os_free;
-#else
-#error The usage of a global heap pool is not implemented yet for esp-idf.
-#endif
 
     ESP_LOGI(LOG_TAG, "Initialize WASM runtime");
     /* initialize runtime environment */
@@ -54,7 +50,6 @@ void * iwasm_main(void *arg)
         return NULL;
     }
 
-#if WASM_ENABLE_INTERP != 0
     ESP_LOGI(LOG_TAG, "Run wamr with interpreter");
 
     wasm_file_buf = (uint8_t *)wasm_test_file_interp;
@@ -90,7 +85,6 @@ fail2interp:
     wasm_runtime_unload(wasm_module);
 
 fail1interp:
-#endif
     /* destroy runtime environment */
     ESP_LOGI(LOG_TAG, "Destroy WASM runtime");
     wasm_runtime_destroy();
