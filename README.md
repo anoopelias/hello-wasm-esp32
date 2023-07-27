@@ -1,12 +1,15 @@
-# "Hello World!" on ESP32 using WASM
+# WASM Micro Runtime (WAMR) over ESP32
 This is an attempt to run WASM (Web Assembly) over ESP32 using the [wasm-micro-runtime](https://github.com/bytecodealliance/wasm-micro-runtime) project.
 
-We will stick to a simple hello world.
+This is an extraction of the sample project [already available](https://github.com/bytecodealliance/wasm-micro-runtime/tree/main/product-mini/platforms/esp-idf) along with WAMR. Further to that we test support for Rust compiled wasm binary as well.
+
+This is built only for learning purposes, and is not intended for production. We will stick to a simple "Hello world!" for now.
 
 ## Status
 
 - [x] WASM built using clang
-- [ ] WASM built using rustc
+- [x] WASM built using rustc
+
 
 ## Instructions
 
@@ -24,6 +27,9 @@ Also you would need mac / Linux / Windows computer as well for cross compilation
 
 ### Usage
 
+
+#### Step 1: Init
+
 Remember to bring esp-idf into path,
 ```
 $ export $IDF_PATH/export.sh
@@ -35,18 +41,25 @@ $ git clone git@github.com:anoopelias/hello-wasm-esp32.git
 $ cd hello-wasm-esp32
 ```
 
-Compile wasm,
+#### Step 2.a: Build wasm binary using clang
 ```
 $ cd hello-wasm
 $ ./build.sh; cd ..
 ```
 
-And build and flash the esp binary,
+#### Step 2.b: Build wasm binary using Rust instead
 ```
-$ ./build_and_run.sh
+$ cd hello-wasm-rs
+$ ./build.sh; cd ..
 ```
 
-Once this is complete, if you run
+#### Step 3: Build IDF image and flash it
+
+```
+$ ./run.sh
+```
+
+#### Step 4: Check logs
 ```
 $ idf.py monitor
 ```
