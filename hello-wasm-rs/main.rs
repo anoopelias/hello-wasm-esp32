@@ -15,7 +15,7 @@ extern "C" {
 
 #[no_mangle]
 fn main() {
-    let hello = "Hello Rust 6 World!";
+    let hello = "Hello Rust World!";
     let hello_ptr: *const u8 = hello.as_ptr() as *const u8;
 
     unsafe {
