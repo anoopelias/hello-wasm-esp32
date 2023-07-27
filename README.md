@@ -1,4 +1,4 @@
-# "Hello World!" on ESP32 using WASM 
+# "Hello World!" on ESP32 using WASM
 This is an attempt to run WASM (Web Assembly) over ESP32 using the [wasm-micro-runtime](https://github.com/bytecodealliance/wasm-micro-runtime) project.
 
 We will stick to a simple hello world.
@@ -20,7 +20,7 @@ Also you would need mac / Linux / Windows computer as well for cross compilation
 - Clone `wasm-micro-runtime` from [here](https://github.com/bytecodealliance/wasm-micro-runtime). Set `WAMR_PATH` to this path in your user profile.
 - Install `wasi-sdk` as mentioned [here](https://github.com/WebAssembly/wasi-sdk).
     - Its okay to use release downloads but it didn't work for me on Linux. I had to compile it.
-    - Set `WASI_PATH` in your profile correctly to the folder where the artifacts are untar'ed.
+    - Set `WASI_SDK_PATH` in your profile correctly to the folder where the artifacts are untar'ed.
 
 ### Usage
 
@@ -46,12 +46,12 @@ And build and flash the esp binary,
 $ ./build_and_run.sh
 ```
 
-Once this is complete, if you run 
+Once this is complete, if you run
 ```
 $ idf.py monitor
 ```
 
-You should be able to see relevant "Hello World" and memory locations printed in terminal.
+You should be able to see relevant "Hello World" printed in terminal.
 ```
 ...
 ...
@@ -61,8 +61,6 @@ I (10) wamr: Run wamr with interpreter
 I (10) wamr: Instantiate WASM runtime
 I (10) wamr: run main() of the application
 Hello clang world!
-buf ptr: 0x1458
-buf: 1234
 I (20) wamr: Deinstantiate WASM runtime
 I (30) wamr: Unload WASM module
 I (30) wamr: Destroy WASM runtime
