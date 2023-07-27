@@ -14,11 +14,6 @@ extern "C" {
 }
 
 #[no_mangle]
-fn _start() {
-    main();
-}
-
-#[no_mangle]
 fn main() {
     let hello = "Hello Rust 6 World!";
     let hello_ptr: *const u8 = hello.as_ptr() as *const u8;
