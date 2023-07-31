@@ -56,7 +56,7 @@ $ ./build.sh; cd ..
 #### Step 3: Build IDF image and flash it
 
 ```
-$ ./run.sh
+$ ./build_and_run.sh
 ```
 
 #### Step 4: Check logs
